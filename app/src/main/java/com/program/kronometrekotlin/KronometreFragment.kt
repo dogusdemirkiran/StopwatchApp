@@ -12,8 +12,8 @@ import kotlinx.android.synthetic.main.fragment_kronometre.*
 class KronometreFragment : Fragment(R.layout.fragment_kronometre) {
     lateinit var runnable: Runnable
     var handler = Handler(Looper.myLooper()!!)
-    var saniye = 55
-    var dakika = 59
+    var saniye = 0
+    var dakika = 0
     var saat = 0
     var lapList = ArrayList<String>()
     private lateinit var adapter: KronometreAdapter
