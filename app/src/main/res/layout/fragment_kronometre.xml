@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".KronometreFragment">
+
+    <TextView
+        android:id="@+id/textViewSaniyeText"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="50dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginEnd="50dp"
+        android:text="00"
+        android:textSize="50dp"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/textViewikiNokta1"
+        android:layout_width="20dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="50dp"
+        android:layout_toLeftOf="@+id/textViewSaniyeText"
+        android:text=":"
+        android:textSize="50dp"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/textViewDakikaText"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="50dp"
+        android:layout_toLeftOf="@+id/textViewikiNokta1"
+        android:text="00"
+        android:textSize="50dp"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/textViewikiNokta2"
+        android:layout_width="20dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="50dp"
+        android:layout_toLeftOf="@+id/textViewDakikaText"
+        android:text=":"
+        android:textSize="50dp"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/textViewSaatText"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="50dp"
+        android:layout_toLeftOf="@id/textViewikiNokta2"
+        android:text="00"
+        android:textSize="50dp"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textStyle="bold"/>
+
+    <Button
+        android:id="@+id/buttonBaslat"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:text="BAŞLAT"
+        android:layout_below="@+id/textViewSaatText"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:id="@+id/buttonDurdur"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:text="DURDUR"
+        android:layout_below="@+id/buttonBaslat"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:id="@+id/buttonSifirla"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:text="SIFIRLA"
+        android:layout_below="@+id/buttonDurdur"
+        android:layout_centerHorizontal="true" />
+    <Button
+        android:id="@+id/buttonLap"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:text="TUR"
+        android:layout_toRightOf="@+id/buttonSifirla"
+        android:layout_below="@+id/buttonDurdur" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_View_Kronometre"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/buttonSifirla"
+        android:layout_marginTop="20dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/item_row" />
+
+</RelativeLayout>
