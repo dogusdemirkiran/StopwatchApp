@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.android.synthetic.main.fragment_kronometre.view.*
 import kotlinx.android.synthetic.main.item_row.view.*
 
 class KronometreAdapter(val kronometreLap: ArrayList<String>): RecyclerView.Adapter<KronometreHolder>() {
@@ -14,7 +15,8 @@ class KronometreAdapter(val kronometreLap: ArrayList<String>): RecyclerView.Adap
     }
 
     override fun onBindViewHolder(holder: KronometreHolder, position: Int) {
-        holder.itemView.textView_RecyclerTime.text = kronometreLap[position]
+        holder.itemView.textView_RecyclerTime.text = "${position+1} ${kronometreLap[position]}"
+
     }
 
     override fun getItemCount(): Int {
@@ -23,5 +25,4 @@ class KronometreAdapter(val kronometreLap: ArrayList<String>): RecyclerView.Adap
 }
 
 class KronometreHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-
 }

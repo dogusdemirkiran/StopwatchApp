@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_kronometre.*
+import kotlinx.android.synthetic.main.item_row.*
 
 class KronometreFragment : Fragment(R.layout.fragment_kronometre) {
     lateinit var runnable: Runnable
@@ -84,7 +85,14 @@ class KronometreFragment : Fragment(R.layout.fragment_kronometre) {
             textViewSaniyeText.text = "00"
             textViewDakikaText.text = "00"
             textViewSaatText.text = "00"
+            lapList.clear()
             handler.removeCallbacks(runnable)
         }
+    }
+
+    fun sqlVeriKaydet(){
+    }
+
+    fun sqlVeriAl(){
     }
 }
