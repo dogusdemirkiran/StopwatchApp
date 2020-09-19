@@ -1,5 +1,6 @@
 package com.program.kronometrekotlin
 
+import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -17,17 +18,25 @@ class KronometreFragment : Fragment(R.layout.fragment_kronometre) {
     var dakika = 0
     var saat = 0
     var lapList = ArrayList<String>()
+    var lapText: String? = null
+
     private lateinit var adapter: KronometreAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        buttonLap.visibility = View.INVISIBLE
+        buttonDurdur.visibility = View.INVISIBLE
+        buttonSifirla.visibility = View.INVISIBLE
         adapter = KronometreAdapter(lapList)
         recycler_View_Kronometre.adapter = adapter
+        //sqlVeriAl()
         buttonLap.setOnClickListener {
             val saatLap: String = textViewSaatText.text.toString()
             val dakikaLap: String = textViewDakikaText.text.toString()
             val saniyeLap: String = textViewSaniyeText.text.toString()
+            lapText = "${saat}:${dakika}:${saniye}"
             lapList.add("${saat}:${dakika}:${saniye}")
+            //sqlVeriKaydet(lapText!!)
             adapter.notifyDataSetChanged()
         }
 
@@ -71,11 +80,15 @@ class KronometreFragment : Fragment(R.layout.fragment_kronometre) {
             }
             handler.post(runnable)
             buttonBaslat.visibility = View.INVISIBLE
+            buttonDurdur.visibility = View.VISIBLE
+            buttonSifirla.visibility = View.VISIBLE
+            buttonLap.visibility = View.VISIBLE
         }
 
         buttonDurdur.setOnClickListener {
             handler.removeCallbacks(runnable)
             buttonBaslat.visibility = View.VISIBLE
+            buttonDurdur.visibility = View.INVISIBLE
         }
 
         buttonSifirla.setOnClickListener {
@@ -87,12 +100,34 @@ class KronometreFragment : Fragment(R.layout.fragment_kronometre) {
             textViewSaatText.text = "00"
             lapList.clear()
             handler.removeCallbacks(runnable)
+            buttonBaslat.visibility = View.VISIBLE
+            buttonSifirla.visibility = View.INVISIBLE
+            buttonLap.visibility = View.INVISIBLE
+            buttonDurdur.visibility = View.INVISIBLE
         }
     }
 
-    fun sqlVeriKaydet(){
+    fun sqlVeriKaydet(laptextt: String){
+        context?.let{
+            val database = it.openOrCreateDatabase("Time", Context.MODE_PRIVATE,null)
+            database.execSQL("CREATE TABLE IF NOT EXISTS laptime (id INT PRIMARY KEY, time VARCHAR)")
+            val sqlString = "INSERT INTO laptime (id, time) VALUES (?,?)"
+            val statement = database.compileStatement(sqlString)
+            statement.bindString(1,laptextt)
+            statement.execute()
+        }
     }
 
     fun sqlVeriAl(){
+        context?.let {
+            val database = it.openOrCreateDatabase("Time",Context.MODE_PRIVATE,null)
+            val cursor = database.rawQuery("SELECT * FROM laptime",null)
+            val idIndex = cursor.getColumnIndex("id")
+            val timeIndex = cursor.getColumnIndex("time")
+            while(cursor.moveToNext()){
+                lapList.add(cursor.getString(timeIndex))
+            }
+            cursor.close()
+        }
     }
 }
