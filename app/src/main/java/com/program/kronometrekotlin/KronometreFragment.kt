@@ -1,6 +1,7 @@
 package com.program.kronometrekotlin
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -30,10 +31,7 @@ class KronometreFragment : Fragment(R.layout.fragment_kronometre) {
         adapter = KronometreAdapter(lapList)
         recycler_View_Kronometre.adapter = adapter
         buttonLap.setOnClickListener {
-            val saatLap: String = textViewSaatText.text.toString()
-            val dakikaLap: String = textViewDakikaText.text.toString()
-            val saniyeLap: String = textViewSaniyeText.text.toString()
-            lapText = "${saat}:${dakika}:${saniye}"
+
             lapList.add("${saat}:${dakika}:${saniye}")
             adapter.notifyDataSetChanged()
         }
@@ -85,6 +83,7 @@ class KronometreFragment : Fragment(R.layout.fragment_kronometre) {
 
         buttonDurdur.setOnClickListener {
             handler.removeCallbacks(runnable)
+            buttonBaslat.text = "Devam Et"
             buttonBaslat.visibility = View.VISIBLE
             buttonDurdur.visibility = View.INVISIBLE
         }
@@ -98,10 +97,12 @@ class KronometreFragment : Fragment(R.layout.fragment_kronometre) {
             textViewSaatText.text = "00"
             lapList.clear()
             handler.removeCallbacks(runnable)
+            buttonBaslat.text = "Başlat"
             buttonBaslat.visibility = View.VISIBLE
             buttonSifirla.visibility = View.INVISIBLE
             buttonLap.visibility = View.INVISIBLE
             buttonDurdur.visibility = View.INVISIBLE
+            onDestroy()
         }
     }
 }
