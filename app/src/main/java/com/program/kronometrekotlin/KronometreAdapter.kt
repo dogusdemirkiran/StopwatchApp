@@ -15,8 +15,11 @@ class KronometreAdapter(val kronometreLap: ArrayList<String>): RecyclerView.Adap
     }
 
     override fun onBindViewHolder(holder: KronometreHolder, position: Int) {
-        holder.itemView.textView_RecyclerTime.text = "${position+1} ${kronometreLap[position]}"
-
+        if(position+1 < 10){
+            holder.itemView.textView_RecyclerTime.text = "0${position+1}    ${kronometreLap[position]}"
+        }else{
+            holder.itemView.textView_RecyclerTime.text = "${position+1}     ${kronometreLap[position]}"
+        }
     }
 
     override fun getItemCount(): Int {

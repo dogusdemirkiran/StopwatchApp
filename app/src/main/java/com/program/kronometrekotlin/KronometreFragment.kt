@@ -18,21 +18,38 @@ class KronometreFragment : Fragment(R.layout.fragment_kronometre) {
     var saniye = 0
     var dakika = 0
     var saat = 0
+    var saat1 = 0
+    var dakika1 = 0
+    var saniye1 = 0
+    var saat2 = 0
+    var dakika2 = 0
+    var saniye2 = 0
+    var toplam = 0
+    var toplam1 = 0
     var lapList = ArrayList<String>()
-    var lapText: String? = null
-
     private lateinit var adapter: KronometreAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        saat2 = saat
+        dakika2 = dakika
+        saniye2 = saniye
         buttonLap.visibility = View.INVISIBLE
         buttonDurdur.visibility = View.INVISIBLE
         buttonSifirla.visibility = View.INVISIBLE
         adapter = KronometreAdapter(lapList)
         recycler_View_Kronometre.adapter = adapter
         buttonLap.setOnClickListener {
-
-            lapList.add("${saat}:${dakika}:${saniye}")
+            toplam = saat*3600 + dakika*60 + saniye
+            toplam1 = saat1*3600 + dakika1*60 + saniye1
+            toplam = toplam - toplam1
+            saat2 = toplam/3600
+            dakika2 = (toplam%3600)/60
+            saniye2 = (toplam%3600)%60
+            lapList.add("${saat}:${dakika}:${saniye}   ${saat2}:${dakika2}:${saniye2}")
+            saat1 = saat
+            dakika1 = dakika
+            saniye1 = saniye
             adapter.notifyDataSetChanged()
         }
 
@@ -92,6 +109,9 @@ class KronometreFragment : Fragment(R.layout.fragment_kronometre) {
             saniye = 0
             dakika = 0
             saat = 0
+            saniye1 = 0
+            dakika1 = 0
+            saat1 = 0
             textViewSaniyeText.text = "00"
             textViewDakikaText.text = "00"
             textViewSaatText.text = "00"
@@ -102,7 +122,6 @@ class KronometreFragment : Fragment(R.layout.fragment_kronometre) {
             buttonSifirla.visibility = View.INVISIBLE
             buttonLap.visibility = View.INVISIBLE
             buttonDurdur.visibility = View.INVISIBLE
-            onDestroy()
         }
     }
 }
